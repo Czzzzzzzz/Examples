@@ -1,0 +1,49 @@
+{     
+	"log": {
+		"loglevel": "info",
+		"access": "/var/log/v2ray/access.log",
+		"error": "/var/log/v2ray/error.log"
+	},
+	"inbounds": [         
+	{             
+		"port": 1080, // SOCKS 代理端口，在浏览器中需配置代理并指向这个端口             
+		"listen": "127.0.0.1",             
+		"protocol": "socks",             
+		"sniffing": {
+			"enabled": true,
+			"destOverride": ["http", "tls"]
+		},
+		"settings": {                 
+			"auth": "noauth"             
+		}         
+	}     
+	],     
+	"outbounds": [         
+	{             
+		"protocol": "VLESS",		
+		"settings": {                 
+			"vnext": [                     
+				{                         
+					"address": "www.your_domain.com", // 服务器地址，请修改为你自己的服务器 ip 或域名                         
+					"port": 443, // 服务器端口                         
+					"users": [                             
+						{                                 
+							"id": "randomly_generated_uuuid",
+							"alterId": 0,
+							"encryption":"none"
+						}                         
+					]                     
+				}                 
+			]             
+		},
+		"streamSettings": {
+			"network": "ws",
+			"security": "tls",
+			"wsSettings": {
+				"path": "" // match with server configuration
+			}
+		}
+
+	}
+	]	
+}
